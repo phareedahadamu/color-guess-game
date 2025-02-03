@@ -11,8 +11,9 @@ function App() {
   const correctGuesses = useRef(0);
 
   // States
+  const randomI = Math.floor(Math.random() * 6);
   const [colorFamily, setColorFamily] = useState(() =>
-    selectColorFamily(indexRef.current)
+    selectColorFamily(indexRef.current, randomI)
   );
   const [clickedColor, setClickedColor] = useState(null);
 
@@ -31,8 +32,7 @@ function App() {
   });
 
   // State setting function
-  function selectColorFamily(i) {
-    const randomIndex = Math.floor(Math.random() * colors[i].length);
+  function selectColorFamily(i, randomIndex) {
     return {
       colorGroup: colors[i],
       selectedColor: colors[i][randomIndex],
@@ -51,9 +51,10 @@ function App() {
         : correctGuesses.current;
   }
   function startNewGame() {
+    const randomIndex = Math.floor(Math.random() * 6);
     indexRef.current = indexRef.current === 4 ? 0 : indexRef.current + 1;
     setClickedColor(null);
-    setColorFamily(() => selectColorFamily(indexRef.current));
+    setColorFamily(() => selectColorFamily(indexRef.current, randomIndex));
   }
   function retry() {
     setClickedColor(null);
