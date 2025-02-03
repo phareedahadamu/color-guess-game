@@ -2,8 +2,8 @@ import "./App.css";
 import { colors } from "./colors";
 import { useState, useRef } from "react";
 import Button from "./componets/Button";
-import icon from "./assets/refresh-svgrepo-com.svg";
 import confetti from "./assets/confetti2.gif";
+import sad from "./assets/sad.gif";
 
 function App() {
   // Refs
@@ -44,20 +44,24 @@ function App() {
 
   // On click handlers
   function handleButtonClick(color) {
+    const randomIndex = Math.floor(Math.random() * 6);
     setClickedColor(color);
     correctGuesses.current =
       color === colorFamily.selectedColor
         ? correctGuesses.current + 1
         : correctGuesses.current;
+    setTimeout(() => {
+      setClickedColor(null);
+      indexRef.current = indexRef.current === 4 ? 0 : indexRef.current + 1;
+      setColorFamily(() => selectColorFamily(indexRef.current, randomIndex));
+    }, 1350);
   }
   function startNewGame() {
     const randomIndex = Math.floor(Math.random() * 6);
-    indexRef.current = indexRef.current === 4 ? 0 : indexRef.current + 1;
+    indexRef.current = 0;
+    correctGuesses.current = 0;
     setClickedColor(null);
     setColorFamily(() => selectColorFamily(indexRef.current, randomIndex));
-  }
-  function retry() {
-    setClickedColor(null);
   }
 
   return (
@@ -81,6 +85,10 @@ function App() {
           {colorFamily.selectedColor === clickedColor && (
             <img className="confetti" src={confetti} alt="confetti gif" />
           )}
+          {colorFamily.selectedColor !== clickedColor &&
+            clickedColor !== null && (
+              <img className="sad" src={sad} alt="sad gif" />
+            )}
           {clickedColor !== null ? (
             clickedColor === colorFamily.selectedColor ? (
               <p data-testid="gameStatus" style={{ color: "#7272fe" }}>
@@ -88,10 +96,7 @@ function App() {
               </p>
             ) : (
               <p data-testid="gameStatus" style={{ color: "red" }}>
-                Oops! Wrong guess. Try again?
-                <button onClick={() => retry()}>
-                  <img src={icon} alt="refresh icon" />
-                </button>
+                Oops! Wrong guess.
               </p>
             )
           ) : (

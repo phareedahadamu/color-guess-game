@@ -77,6 +77,12 @@ h2 {
   width: 30rem;
   height: auto;
 }
+.sad {
+  width: 15rem;
+  height: auto;
+  position: absolute;
+  bottom: 2.7rem;
+}
 .status-container {
   position: relative;
   max-width: 95%;
