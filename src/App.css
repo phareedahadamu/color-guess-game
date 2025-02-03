@@ -92,11 +92,19 @@ h2 {
 .status-container > p {
   font-size: 1.6rem;
 }
-.status-container > p > button > img {
-  width: 1.5rem;
-  height: auto;
+.status-container > p > button {
+  padding: 0.25rem;
+  border: 0.1rem red solid;
+  border-radius: 0.5rem;
   margin-left: 1rem;
+}
+.status-container > p > button > img {
+  width: 1.8rem;
+  height: auto;
+  /* margin-left: 1rem; */
   background-color: #f7f7f9;
+  display: block;
+  margin: 0 auto;
 }
 .button-container {
   display: grid;
